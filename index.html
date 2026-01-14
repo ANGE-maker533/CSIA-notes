@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSIA2 - Gestion des Notes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="loginPage" class="login-container">
+            <div class="card">
+                <div class="text-center">
+                    <h1>CSIA2 - Notes</h1>
+                    <p style="color: #718096; margin-top: 10px;">Sécurité Web - Système de gestion</p>
+                </div>
+
+                <div id="errorMessage" class="error-box hidden">
+                    <span id="errorText"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" id="username" placeholder="ex: jean.martin">
+                </div>
+
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="password" placeholder="••••••••">
+                </div>
+
+                <button class="btn btn-primary" onclick="login()">Se connecter</button>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <p style="font-weight: 600;">Comptes de test :</p>
+                    <p>prof.dupont / prof123</p>
+                    <p>jean.martin / eleve123</p>
+                    <p>marie.dubois / eleve123</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="mainPage" class="hidden">
+            <div class="card">
+                <div class="header">
+                    <div>
+                        <h1>Gestion des Notes - CSIA2</h1>
+                        <p class="user-info">
+                            <strong id="currentUserName"></strong>
+                            <span class="badge" id="currentUserRole"></span>
+                        </p>
+                        <p style="font-size: 10px; color: #999;">
+                            Token: <span id="authToken"></span> | Session: <span id="sessionId"></span>
+                        </p>
+                    </div>
+                    <button class="btn btn-danger" onclick="logout()">Déconnexion</button>
+                </div>
+            </div>
+
+            <div id="profInterface" class="card hidden">
+                <div class="matiere-title">Sécurité Web</div>
+                <h2>Gestion des notes</h2>
+
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Sélectionner un élève</label>
+                        <select id="selectEleve" onchange="updateNotesEleve()">
+                            <option value="">-- Choisir --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Note (0-20)</label>
+                        <div class="flex">
+                            <input type="number" id="nouvelleNote" min="0" max="20" step="0.5" placeholder="15">
+                            <button class="btn btn-success" onclick="ajouterNote()">Ajouter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="notesEleveContainer"></div>
+
+                <div class="comment-section">
+                    <h3>Commentaires du professeur</h3>
+                    <textarea id="commentInput" rows="3" placeholder="Ajouter un commentaire..."></textarea>
+                    <button class="btn btn-success" onclick="ajouterCommentaire()" style="margin-top: 10px;">Publier</button>
+                    <div id="commentsContainer" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+
+            <div id="eleveInterface" class="card hidden">
+                <div class="matiere-title">Sécurité Web</div>
+                <h2>Mes notes</h2>
+                <div id="mesNotesContainer"></div>
+
+                <div class="comment-section">
+                    <h3>Commentaires</h3>
+                    <div id="eleveCommentsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
